@@ -630,7 +630,8 @@ var scroll = function scroll() {
       bgTitleHeight = $bgEle.offset().top + $bgEle.outerHeight(),
       $tocWrapper = $('.toc-wrapper:first'),
       $tocCatalog = $tocWrapper.find('.toc-catalog'),
-      $progressBar = $('.read-progress'); // toc的收缩
+      $progressBar = $('.read-progress'),
+      $header = $('.header'); // toc的收缩
 
   $tocCatalog.on('click', function () {
     $tocWrapper.toggleClass('toc-hide-children');
@@ -721,12 +722,14 @@ var scroll = function scroll() {
       $homeLink.addClass('home-link-hide');
       $backTop.addClass('back-top-show');
       $sidebarMenu.addClass('header-sidebar-menu-black');
+      $header.addClass('header-show');
     } else if (crossingState === -1) {
       $tocWrapper.removeClass('toc-fixed');
       $homeLink.removeClass('home-link-hide');
       $banner.removeClass('banner-show');
       $backTop.removeClass('back-top-show');
       $sidebarMenu.removeClass('header-sidebar-menu-black');
+      $header.removeClass('header-show');
     } // 如果不是post - page 以下忽略
 
 
