@@ -153,7 +153,7 @@ var mySidebar = new __WEBPACK_IMPORTED_MODULE_0__sidebar__["a" /* default */]({
   panels: '.sideabar-contents > div',
   menuButton: '.header-sidebar-menu'
 });
-/* harmony default export */ __webpack_exports__["a"] = (mySidebar);
+/* unused harmony default export */ var _unused_webpack_default_export = (mySidebar);
 
 /***/ }),
 /* 2 */
@@ -2375,7 +2375,8 @@ var MetaInfo = /*#__PURE__*/function () {
     this.postContainer = $(postContainer)[0];
     this.indexMap = new Map();
 
-    this._bindLabelClick();
+    this._bindLabelClick(); //this._load()
+
   }
 
   _createClass(MetaInfo, [{
@@ -2492,7 +2493,24 @@ var MetaInfo = /*#__PURE__*/function () {
       }
 
       this.postsArr = postsArr;
-      this.isInited = true;
+      this.isInited = true; // init tag page
+
+      try {
+        if (window.location.href.indexOf("tags") > -1) {
+          var tag = decodeURIComponent(window.location.hash.replace("#", "")); //find the tag
+
+          console.log("hhhhhh: " + tag); //then add click js
+
+          var click = new MouseEvent("click", {
+            "view": window,
+            "bubbles": true,
+            "cancelable": false
+          });
+          var element = document.querySelector("[data-tags=".concat(CSS.escape(tag), "]"));
+          element.dispatchEvent(click);
+          console.log(element);
+        }
+      } catch (err) {}
     }
   }]);
 
@@ -2590,13 +2608,13 @@ var SidebarMeta = /*#__PURE__*/function () {
 
       document.body.addEventListener('click', function (e) {
         if (e.target.className === 'post-tag') {
-          e.stopPropagation();
-          __WEBPACK_IMPORTED_MODULE_1__initSidebar__["a" /* default */].activateSidebar();
-          __WEBPACK_IMPORTED_MODULE_1__initSidebar__["a" /* default */].switchTo(1);
+          e.stopPropagation(); //sidebar.activateSidebar()
+          //sidebar.switchTo(1)
+
           var currLabelName = e.target.getAttribute("data-tags");
-          _this5.currLabelName = currLabelName;
-          var tagMeta = _this5.metas[0];
-          tagMeta.changeLabel(_this5.currLabelName);
+          _this5.currLabelName = currLabelName; //跳转
+
+          location.href = '/tags#' + _this5.currLabelName;
         }
       });
     }
